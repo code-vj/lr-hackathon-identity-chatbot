@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && rimraf build/cache",
+    "export": "next export",
     "start": "next start",
     "type-check": "tsc --noEmit",
     "lint": "eslint --ignore-path .gitignore \"**/*.+(ts|js|tsx)\"",
