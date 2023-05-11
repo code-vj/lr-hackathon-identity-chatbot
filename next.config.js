@@ -1,10 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    runtime: 'edge',
-  },
-  distDir: 'build',
+ // distDir: 'build',
   swcMinify: true,
   webpack(config) {
     config.experiments = { ...config.experiments, topLevelAwait: true ,asyncWebAssembly: true};
