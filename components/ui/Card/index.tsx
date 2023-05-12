@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import {  Paper } from '@mui/material';
 interface MyComponentProps {
   label: string;
+
 }
 
 const MyComponent: React.FC<MyComponentProps> = (props) => { 

@@ -4,7 +4,7 @@
     overflow-x: hidden;
     position: relative;
     height: 100vh;
-    overflow-y: auto;
+    overflow-y: hidden;
   }
   
   
@@ -55,7 +55,7 @@
     background-repeat: no-repeat;
   }
   
-  .rightHeaderDiv {
+  /* .rightHeaderDiv {
     display: flex;
     justify-content: end;
     padding-right: 20px;
@@ -66,19 +66,19 @@
   .rightStickyDiv {
     /* display: flex; */
     /* justify-content: end; */
-    text-align: center;
+    /* text-align: center;
     padding-right: 20px;
     padding-bottom: 40px;
     position: fixed;
-    width: 75%;
-  }
+    width: 75%; */
+  /* } */ 
   
   .loginButton {
     color: white !important;
   }
   
   .rightBodyDiv {
-    height: 78%;
+    height: 100%;
     padding: 30px;
     padding-top: 40px !important;
     padding: 40px;
@@ -128,9 +128,7 @@
     padding: 40px;
     padding-left: 30px !important;
     padding-right: 30px !important;
-    position: fixed;
-    bottom: 0;
-    width: 80%;
+    width: 100%;
   }
   .rightTextFieldMainDiv {
     display: flex;
@@ -139,6 +137,23 @@
   .rightTextFieldDiv {
     width: 70%;
     text-align: center;
+    height: 60px;
+    margin-bottom: 10px;
+    display: flex;
+    background-color: #023e51;
+    border:2px solid #023e51;
+    border-radius:10px;
+  }
+
+  .question {
+padding: 20px;
+  }
+
+  .answers {
+   padding: 20px;
+    border-top: 2px solid #023e51;
+    background-color: #023e51;
+
   }
   
   .rightFooterDiv {

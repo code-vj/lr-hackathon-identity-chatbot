@@ -3,10 +3,14 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Paper } from '@mui/material';
+interface MyComponentProps {
+  children: React.ReactNode;
+}
 
-export default function ChatCard(props) {
+const MyComponent: React.FC<MyComponentProps> = (props) => { 
   return (
       <Card {...props} sx={{
+          textAlign: "left",
           width: "100%",
           backgroundColor: "#01364b",
           color: "white",
@@ -26,12 +30,12 @@ export default function ChatCard(props) {
           boxShadow: "10px 5px 5px #141414"
           
       }}>
-      <CardContent sx={{padding: "10px !important"}}>
-        <Typography gutterBottom variant="p" component="div">
-          {props.label}
-        </Typography>
+      <CardContent sx={{padding: "0px !important"}}>
+        {props.children}
         </CardContent>
       </Paper>
     </Card>
   );
 }
+
+export default MyComponent;

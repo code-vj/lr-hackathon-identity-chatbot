@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import Layout from '@/components/layout';
 import styles from '@/styles/Home.module.css';
+
 import { Message } from '@/types/chat';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
@@ -20,6 +21,7 @@ import { Avatar, Button, IconButton, InputAdornment, Typography } from '@mui/mat
 import constantVaribles from '@/constants';
 import ChatTextField from '@/components/ui/TextField'
 
+
 export default function Home() {
   const [query, setQuery] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -34,23 +36,26 @@ export default function Home() {
     ],
     history: [],
   });
-
+ 
   const { messages, history } = messageState;
 
   const messageListRef = useRef<HTMLDivElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    scrollToBottom()
-    }, [messages.length]);
+    textAreaRef.current?.focus();
+    
+     
+    // var aScript = document.createElement('script');
+    // aScript.type = 'text/javascript';
+    // aScript.src = "/test.js";
 
-    const scrollToBottom = () => {
-      // messageListRef.current?.scrollIntoView({ behavior: "smooth" })
-      // console.log(messageListRef?.current?.scrollHeight);
-      
-      // messageListRef.current?.scrollTop = messageListRef?.current?.scrollHeight;
-      // messageListRef.current?.focus();
-      }
+    // document.head.appendChild(aScript);
+    // aScript.onload = () => {
+
+    // };
+    //stripe_load();
+  }, []);
 
   //handle form submission
   async function handleSubmit(e: any) {
@@ -129,6 +134,10 @@ export default function Home() {
       e.preventDefault();
     }
   };
+
+ 
+        
+ 
 
   return (
     <>
@@ -219,9 +228,24 @@ export default function Home() {
               <div className={mainstyles.rightChatWindow} >
               {messages.length === 0 ?
               <div >
-                <ChatCard label="What is identity and access management?" />
-                <ChatCard label="Benefits of passwordless authentication" />
-                <ChatCard label="How does two-factor authentication (2FA) work?" />
+                <ChatCard  >
+                  <p className={mainstyles.question}
+                   onClick={() => setQuery("What is identity and access management?")}>
+                    What is identity and access management?
+                </p>
+                   </ChatCard>
+                <ChatCard >
+                  <p className={mainstyles.question}
+                  onClick={() => setQuery("Benefits of passwordless authentication")}>
+                  Benefits of passwordless authentication
+                  </p>
+                  </ChatCard>
+                <ChatCard >
+                  <p  className={mainstyles.question}
+                  onClick={() => setQuery("How does two-factor authentication (2FA) work?")}>
+                  How does two-factor authentication (2FA) work?
+                  </p>
+               </ChatCard>
                 </div> : 
                
                 <div >
@@ -229,11 +253,23 @@ export default function Home() {
              
                       return (
                         <div >
-                    <ChatCard label={message.message} />
-                    {error && (
+                   
+                    {message.type !== "apiMessage" && <ChatCard >
+                        <p className={mainstyles.question}>
+                          {message.message}
+                        </p>
+                        {messages[index + 1]?.type === "apiMessage" && 
+                        <p className={mainstyles.answers}>
+                          {message.message}
+                        </p>}
+                          {error && (
               
-                      <ChatCard label={error}/>
-                    )}
+                            <p className={mainstyles.answers}>
+                          {error}
+                        </p>
+                          )}
+                      </ChatCard>}
+                  
                     </div>
                     // }
                     );
@@ -247,38 +283,46 @@ export default function Home() {
               
             </div>
           </div>
-          <div className={mainstyles.rightBottomDiv}>
-                <div className={mainstyles.rightTextFieldMainDiv}>
+            <div className={mainstyles.rightBottomDiv}>
+              <div className={mainstyles.rightTextFieldMainDiv}>
                 <div className={mainstyles.rightTextFieldDiv}>
 
-                <ChatTextField
-                  size='large'
-                  placeholder={constantVaribles.ASK_ME}
-                  variant="standard"
-                  onKeyDown={handleEnter}
-                  value={query}
-                  ref={textAreaRef}
-                  onChange={(e) => setQuery(e.target.value)}
-                  endAdornment={
-                    <InputAdornment position="end" sx={{width: "100px", display: "flex", justifyContent: "space-around"}}>
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleSubmit}
-                        // onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        <img src="./assets/images/send.png" alt="logo" width="12%" />
-                      </IconButton>
-                    </InputAdornment>} />
-                    </div>
-                    </div>
+                  <ChatTextField
+                    // size='large'
+                    sx={{ width: "90%" }}
+                    placeholder={constantVaribles.ASK_ME}
+                    variant="standard"
+                    disabled={loading}
+                    onKeyDown={handleEnter}
+                    value={query}
+                    // ref={textAreaRef}
+                    onChange={(e) => setQuery(e.target.value)}
+
+                  />
+                  <div style={{ width: "10%" }} >
+                    {loading ? (
+                      <div style={{width: "100%", height: "100%", display: "flex", alignContent: "center" }}>
+                        <LoadingDots color="#FFF" />
+                      </div>
+                    ) 
+                    : 
+                    <Button
+                      style={{ height: "100%" }}
+                      onClick={handleSubmit}
+                    >
+                      <img src="./assets/images/send.png" alt="logo" width="90%" />
+                    </Button>
+                    }
+                  </div>
+                </div>
+              </div>
                   <div className={mainstyles.rightFooterDiv}>
-                    <Typography variant='h6'>
+                    <p>
                       Terms of use
-                    </Typography>
-                    <Typography variant='h6'>
+                    </p>
+                    <p>
                       Privacy Statement
-                    </Typography>
+                    </p>
                   </div>
 
               </div>
@@ -333,6 +377,9 @@ export default function Home() {
             <div className={styles.center}>
               <div className={styles.cloudform}>
                 <form onSubmit={handleSubmit}>
+                <div className="words" >
+        <p id="p"></p>
+    </div>
                   <textarea
                     disabled={loading}
                     onKeyDown={handleEnter}
@@ -345,7 +392,7 @@ export default function Home() {
                     placeholder={
                       loading
                         ? 'Waiting for response...'
-                        : 'What is this legal case about?'
+                        : 'What is this for customer identity?'
                     }
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
@@ -371,6 +418,7 @@ export default function Home() {
                       </svg>
                     )}
                   </button>
+                 
                 </form>
               </div>
             </div>
@@ -383,7 +431,7 @@ export default function Home() {
         </div>
         <footer className="m-auto p-4">
           <a href="https://twitter.com/mayowaoshin">
-            Powered by LangChainAI. Demo built by Mayo (Twitter: @mayowaoshin).
+            Powered by LoginRadius.
           </a>
         </footer>
       </Layout> */}
