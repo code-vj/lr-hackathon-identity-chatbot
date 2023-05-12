@@ -12,6 +12,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import logo from './logo.svg';
+import  mainstyles from '../styles/main.module.css';
+import Card from '@/components/ui/Card';
+import ChatCard from '@/components/ui/ChatCard';
+import { Avatar, Button, IconButton, InputAdornment, Typography } from '@mui/material';
+import constantVaribles from '@/constants';
+import ChatTextField from '@/components/ui/TextField'
 
 export default function Home() {
   const [query, setQuery] = useState<string>('');
@@ -24,10 +31,6 @@ export default function Home() {
     pendingSourceDocs?: Document[];
   }>({
     messages: [
-      {
-        message: 'Hi, what would you like to learn about this legal case?',
-        type: 'apiMessage',
-      },
     ],
     history: [],
   });
@@ -38,8 +41,16 @@ export default function Home() {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    textAreaRef.current?.focus();
-  }, []);
+    scrollToBottom()
+    }, [messages.length]);
+
+    const scrollToBottom = () => {
+      // messageListRef.current?.scrollIntoView({ behavior: "smooth" })
+      // console.log(messageListRef?.current?.scrollHeight);
+      
+      // messageListRef.current?.scrollTop = messageListRef?.current?.scrollHeight;
+      // messageListRef.current?.focus();
+      }
 
   //handle form submission
   async function handleSubmit(e: any) {
@@ -67,7 +78,7 @@ export default function Home() {
 
     setLoading(true);
     setQuery('');
-
+    messageListRef.current?.scrollTo({ top:messageListRef.current.scrollHeight, behavior: 'smooth' });
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
@@ -81,7 +92,7 @@ export default function Home() {
       });
       const data = await response.json();
       console.log('data', data);
-
+      
       if (data.error) {
         setError(data.error);
       } else {
@@ -102,8 +113,7 @@ export default function Home() {
 
       setLoading(false);
 
-      //scroll to bottom
-      messageListRef.current?.scrollTo(0, messageListRef.current.scrollHeight);
+      
     } catch (error) {
       setLoading(false);
       setError('An error occurred while fetching the data. Please try again.');
@@ -122,7 +132,7 @@ export default function Home() {
 
   return (
     <>
-      <Layout>
+      {/* <Layout>
         <div className="mx-auto flex flex-col gap-4">
           <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center">
             LoginRadius Identity ChatBot
@@ -165,7 +175,118 @@ export default function Home() {
                         : styles.usermessage;
                   }
                   return (
-                    <>
+                    <> */}
+
+
+
+    <div className={mainstyles.App}>
+      <div className={mainstyles.mainDiv}>
+        <div className={mainstyles.leftDiv}>
+          <div className={mainstyles.leftHeaderDiv}>
+            <div className={mainstyles.imageDiv}>
+              <img src="./assets/images/loginradius-horizontal-logo.png" alt="logo" width="60%" height="100%" />
+            </div>
+            <div className={mainstyles.leftDivCard}>
+              <Card label="+ New Chat" ></Card>
+              <Card label="Chat History" ></Card>
+            </div>
+          </div>
+          <div className={mainstyles.leftFooterDiv}>
+            <Avatar alt="Name" src='./assets/images/people.png' sx={{ width: 76, height: 76 }}/>
+            <Typography color="#FFF">Name</Typography>
+          </div>
+      </div>
+        <div className={mainstyles.rightDiv}>
+          {/* <div className={mainstyles.rightHeaderDiv}>
+            <Button variant="text" className={mainstyles.loginButton}>LOGIN</Button>
+            <img src="./assets/images/search.png" alt="logo" width="5%" />
+          </div> */}
+          <div className={mainstyles.rightBodyDiv} ref={messageListRef}>
+            {/* <div className={mainstyles.rightHeaderDiv}>
+             <div className={mainstyles.rightStickyDiv}> */}
+            <div className='' style={{display: "flex", justifyContent: "center"}}>
+            <img src="./assets/images/logo.png" alt="logo" height="20%" width="10%"/>
+            </div>
+            <Typography variant='h3' fontWeight={900} marginTop="-20px">{constantVaribles.APP_TITLE}</Typography>
+            <Typography variant='h5' >
+              {constantVaribles.APP_DESCRIPTION}</Typography>
+            {/* </div>
+            </div> */}
+            <div className={mainstyles.rightChatDiv}>
+              <Typography variant='h6'>
+                {constantVaribles.ASK_QUESTION}
+              </Typography>
+              <div className={mainstyles.rightChatWindow} >
+              {messages.length === 0 ?
+              <div >
+                <ChatCard label="What is identity and access management?" />
+                <ChatCard label="Benefits of passwordless authentication" />
+                <ChatCard label="How does two-factor authentication (2FA) work?" />
+                </div> : 
+               
+                <div >
+                  {messages.map((message, index) => {
+             
+                      return (
+                        <div >
+                    <ChatCard label={message.message} />
+                    {error && (
+              
+                      <ChatCard label={error}/>
+                    )}
+                    </div>
+                    // }
+                    );
+                    })}
+                <div style={{ marginBottom: 100 }} ></div>
+                  </div>
+                }
+               
+
+              </div>
+              
+            </div>
+          </div>
+          <div className={mainstyles.rightBottomDiv}>
+                <div className={mainstyles.rightTextFieldMainDiv}>
+                <div className={mainstyles.rightTextFieldDiv}>
+
+                <ChatTextField
+                  size='large'
+                  placeholder={constantVaribles.ASK_ME}
+                  variant="standard"
+                  onKeyDown={handleEnter}
+                  value={query}
+                  ref={textAreaRef}
+                  onChange={(e) => setQuery(e.target.value)}
+                  endAdornment={
+                    <InputAdornment position="end" sx={{width: "100px", display: "flex", justifyContent: "space-around"}}>
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleSubmit}
+                        // onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        <img src="./assets/images/send.png" alt="logo" width="12%" />
+                      </IconButton>
+                    </InputAdornment>} />
+                    </div>
+                    </div>
+                  <div className={mainstyles.rightFooterDiv}>
+                    <Typography variant='h6'>
+                      Terms of use
+                    </Typography>
+                    <Typography variant='h6'>
+                      Privacy Statement
+                    </Typography>
+                  </div>
+
+              </div>
+        </div>
+      </div>
+    </div>
+
+{/* 
                       <div key={`chatMessage-${index}`} className={className}>
                         {icon}
                         <div className={styles.markdownanswer}>
@@ -203,8 +324,8 @@ export default function Home() {
                             ))}
                           </Accordion>
                         </div>
-                      )}
-                    </>
+                      )} */}
+                    {/* </>
                   );
                 })}
               </div>
@@ -265,7 +386,7 @@ export default function Home() {
             Powered by LangChainAI. Demo built by Mayo (Twitter: @mayowaoshin).
           </a>
         </footer>
-      </Layout>
+      </Layout> */}
     </>
   );
 }

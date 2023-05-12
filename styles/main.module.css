@@ -1,0 +1,147 @@
+.App {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    position: relative;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  
+  .mainDiv {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .leftDiv {
+    width: 20%;
+    height: 100%;
+    background-color: black;
+    
+  }
+  
+  .imageDiv {
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+    margin-bottom: 70px !important;
+  }
+  
+  .leftDivCard {
+    margin-top: 120px !important;
+    margin: 40px;
+  }
+  
+  .leftHeaderDiv {
+    width: 100%; 
+    height: 85%;
+  }
+  
+  .leftFooterDiv {
+    width: 100%; 
+    display: flex;
+    height: 5%;
+    margin-left: 20px;
+    align-items: center;
+  }
+  
+  .rightDiv {
+    width: 80%;
+    height: 100%;
+    background-image: url('../public/assets/images/BackgroundImage.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .rightHeaderDiv {
+    display: flex;
+    justify-content: end;
+    padding-right: 20px;
+    padding-bottom: 40px;
+    height: 200px;
+  }
+
+  .rightStickyDiv {
+    /* display: flex; */
+    /* justify-content: end; */
+    text-align: center;
+    padding-right: 20px;
+    padding-bottom: 40px;
+    position: fixed;
+    width: 75%;
+  }
+  
+  .loginButton {
+    color: white !important;
+  }
+  
+  .rightBodyDiv {
+    height: 78%;
+    padding: 30px;
+    padding-top: 40px !important;
+    padding: 40px;
+    color: white !important;
+    text-align: center;
+    margin-bottom: 0px !important;
+    height: 900px;
+    overflow-y: scroll;
+  }
+  .rightBodyDiv::-webkit-scrollbar {
+      width: 10px; /* Set the width of the scrollbar */
+    }
+    
+    /* Define the background color of the scrollbar track */
+    .rightBodyDiv::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+    
+    /* Define the appearance of the scrollbar thumb (the part that you drag) */
+    .rightBodyDiv::-webkit-scrollbar-thumb {
+      background-color: #01364b;
+      border-radius: 5px; /* Add rounded corners to the thumb */
+      border: 2px solid transparent; /* Add a border around the thumb */
+    }
+    
+    /* Define the appearance of the scrollbar thumb when it's being hovered over */
+    .rightBodyDiv::-webkit-scrollbar-thumb:hover {
+      background-color: #01364b;
+    }
+  
+  .rightChatDiv {
+    padding-top: 100px;
+  }
+  
+  .rightChatWindow {
+    padding-top: 10px !important;
+    padding-left: 17rem;
+    padding-right: 17rem;
+
+  }
+  
+  .rightBottomDiv {
+    color: white !important;
+    height: 15%;
+
+    padding-top: 0px !important;
+    padding: 40px;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+    position: fixed;
+    bottom: 0;
+    width: 80%;
+  }
+  .rightTextFieldMainDiv {
+    display: flex;
+    justify-content: center;
+  }
+  .rightTextFieldDiv {
+    width: 70%;
+    text-align: center;
+  }
+  
+  .rightFooterDiv {
+    display: flex;
+    justify-content: space-evenly;
+  }
