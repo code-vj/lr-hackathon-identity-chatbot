@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import Layout from '@/components/layout';
 import styles from '@/styles/Home.module.css';
+
 import { Message } from '@/types/chat';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
@@ -12,6 +13,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+
 
 export default function Home() {
   const [query, setQuery] = useState<string>('');
@@ -25,13 +27,13 @@ export default function Home() {
   }>({
     messages: [
       {
-        message: 'Hi, what would you like to learn about this legal case?',
+        message: 'Hi, what would you like to learn about Identity & Access Management',
         type: 'apiMessage',
       },
     ],
     history: [],
   });
-
+ 
   const { messages, history } = messageState;
 
   const messageListRef = useRef<HTMLDivElement>(null);
@@ -39,6 +41,17 @@ export default function Home() {
 
   useEffect(() => {
     textAreaRef.current?.focus();
+    
+     
+    var aScript = document.createElement('script');
+    aScript.type = 'text/javascript';
+    aScript.src = "/test.js";
+
+    document.head.appendChild(aScript);
+    aScript.onload = () => {
+
+    };
+    //stripe_load();
   }, []);
 
   //handle form submission
@@ -119,6 +132,10 @@ export default function Home() {
       e.preventDefault();
     }
   };
+
+ 
+        
+ 
 
   return (
     <>
@@ -212,6 +229,9 @@ export default function Home() {
             <div className={styles.center}>
               <div className={styles.cloudform}>
                 <form onSubmit={handleSubmit}>
+                <div className="words" >
+        <p id="p"></p>
+    </div>
                   <textarea
                     disabled={loading}
                     onKeyDown={handleEnter}
@@ -224,7 +244,7 @@ export default function Home() {
                     placeholder={
                       loading
                         ? 'Waiting for response...'
-                        : 'What is this legal case about?'
+                        : 'What is this for customer identity?'
                     }
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
@@ -250,6 +270,7 @@ export default function Home() {
                       </svg>
                     )}
                   </button>
+                 
                 </form>
               </div>
             </div>
@@ -262,7 +283,7 @@ export default function Home() {
         </div>
         <footer className="m-auto p-4">
           <a href="https://twitter.com/mayowaoshin">
-            Powered by LangChainAI. Demo built by Mayo (Twitter: @mayowaoshin).
+            Powered by LoginRadius.
           </a>
         </footer>
       </Layout>
